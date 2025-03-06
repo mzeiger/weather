@@ -34,6 +34,7 @@ class WeatherLLPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 spacing: 5,
                 children: [
+                  const SizedBox(height: 10),
                   _location(),
                   imageFromOpenWeather(weather),
                   Text(

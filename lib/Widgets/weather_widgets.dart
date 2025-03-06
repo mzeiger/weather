@@ -1,7 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:weather/api/api.dart';
 import 'package:weather/helpers/time_formulars.dart';
 import 'package:weather/models/forecast_model.dart';
 import 'package:weather/models/weather_model.dart';
@@ -18,27 +17,35 @@ Widget imageFromOpenWeather(WeatherModel weather) {
           child: Align(
             widthFactor: 0.5,
             heightFactor: 0.5,
-            child: weather.weatherIcon == ''
+            child: weather.weatherIcon == null
                 ? ClipRRect(
                     borderRadius: BorderRadius.circular(80),
                     child: SizedBox.fromSize(
                       size: const Size.fromRadius(80),
                       child: Image.asset(
                         'assets/images/all_weather.jpg',
-                        width: 1500,
-                        height: 1500,
+                        width: 100,
+                        height: 100,
                         fit: BoxFit.cover,
                       ),
                     ),
                   )
-                : Image.network('${iconUrl + weather.weatherIcon!}@2x.png',
-                    width: 200, height: 200),
+                : Image.asset(
+                    'assets/images/${weather.weatherIcon}.png',
+                    width: 100,
+                    height: 100,
+                    fit: BoxFit.cover,
+                  ),
           ),
         ),
       ),
       Text(
+        textAlign: TextAlign.center,
         '${weather.weatherDescription}',
-        style: textStyle(20),
+        style: const TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: Color.fromARGB(255, 10, 104, 13)),
       ),
     ],
   );
@@ -51,7 +58,7 @@ Widget keyInfo(BuildContext context, WeatherModel weather) {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
-          spacing: 8,
+          spacing: 10,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             Text(
@@ -66,6 +73,10 @@ Widget keyInfo(BuildContext context, WeatherModel weather) {
               'Feels Like: ${weather.mainFeelsLike}°',
               style: textStyle(18),
             ),
+            // Text(
+            //   '${weather.weatherDescription}',
+            //   style: textStyle(18),
+            // ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -197,8 +208,9 @@ Widget _sunsetInfo(BuildContext context, WeatherModel weather) {
 
 Widget header(WeatherModel weather) {
   return Text(
-    '${weather.name!}, ${weather.sysCountry}',
-    style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+    textAlign: TextAlign.center,
+    '${weather.name!} ${weather.sysCountry}',
+    style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
   );
 }
 
@@ -321,17 +333,22 @@ Widget forecastButton(context, double lat, double lon) {
   return ElevatedButton(
       onPressed: () {
         ForecastModel forecastModel = ForecastModel();
-        forecastModel.getDailyForecasts(lat, lon).then((data) {
-          List<ForecastModel> forecasts = forecastDayCollector(data, lat, lon);
-          Navigator.push(
+        forecastModel.getDailyForecasts(lat, lon).then(
+          (data) {
+            List<ForecastModel> forecasts =
+                forecastDayCollector(data, lat, lon);
+            Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (_) => ForecastPage(
-                        forecasts: forecasts,
-                        lat: lat,
-                        lon: lon,
-                      )));
-        });
+                builder: (_) => ForecastPage(
+                  forecasts: forecasts,
+                  lat: lat,
+                  lon: lon,
+                ),
+              ),
+            );
+          },
+        );
       },
       child: const Text(
         'Fifteen Day Forecast',

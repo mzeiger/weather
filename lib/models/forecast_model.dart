@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
+import 'package:logger/logger.dart';
 import 'package:weather/api/api.dart';
 
 class ForecastModel {
@@ -40,6 +41,7 @@ class ForecastModel {
           '${vcLatLonUrl_1}${latitude},${longitude}${vcLatLonUrl_2Days}$vcKey';
       final response = await http.get(Uri.parse(url));
       Map<String, dynamic> dataMap = jsonDecode(response.body);
+      logResponse(dataMap['currentConditions']);
       return dataMap;
     } catch (e) {
       if (kDebugMode) {
@@ -47,6 +49,12 @@ class ForecastModel {
       }
       return {'x', e} as Map<String, dynamic>;
     }
+  }
+
+  void logResponse(Map<String, dynamic> response) {
+    final logger = Logger();
+    final prettyString = const JsonEncoder.withIndent('  ').convert(response);
+    logger.d(prettyString);
   }
 
   Future<Map<String, dynamic>> getHourlyForecasts(
