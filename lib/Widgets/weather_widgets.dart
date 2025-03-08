@@ -32,9 +32,9 @@ Widget imageFromOpenWeather(WeatherModel weather) {
                   )
                 : Image.asset(
                     'assets/images/${weather.weatherIcon}.png',
-                    width: 100,
+                    width: 200,
                     height: 100,
-                    fit: BoxFit.cover,
+                    // fit: BoxFit.cover,
                   ),
           ),
         ),

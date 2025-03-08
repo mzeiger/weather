@@ -82,7 +82,7 @@ class _SetAppIdPageState extends State<SetAppIdPage> {
                 onPressed: () => pasteText(),
                 style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromARGB(255, 154, 216, 201)),
-                child: const Text('Paste appId'),
+                child: const Text('Paste Key'),
               ),
               ElevatedButton(
                 onPressed: () {
@@ -100,7 +100,7 @@ class _SetAppIdPageState extends State<SetAppIdPage> {
                     backgroundColor: const Color.fromARGB(255, 154, 216, 201)),
                 child: const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 30),
-                  child: Text('Save appId'),
+                  child: Text('Save Key'),
                 ),
               )
             ],
