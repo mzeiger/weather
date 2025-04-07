@@ -39,13 +39,16 @@ Widget imageFromOpenWeather(WeatherModel weather) {
           ),
         ),
       ),
-      Text(
-        textAlign: TextAlign.center,
-        '${weather.weatherDescription}',
-        style: const TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: Color.fromARGB(255, 10, 104, 13)),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: Text(
+          textAlign: TextAlign.center,
+          '${weather.weatherDescription}',
+          style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Color.fromARGB(255, 10, 104, 13)),
+        ),
       ),
     ],
   );
@@ -73,10 +76,6 @@ Widget keyInfo(BuildContext context, WeatherModel weather) {
               'Feels Like: ${weather.mainFeelsLike}°',
               style: textStyle(18),
             ),
-            // Text(
-            //   '${weather.weatherDescription}',
-            //   style: textStyle(18),
-            // ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -419,10 +418,12 @@ void hourlyForecastsGestureDoubleTap(
   forecastModel.getHourlyForecasts(lat, lon, date).then((data) {
     List<ForecastModel> forecasts = forecastHourCollector(data, date);
     Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (_) =>
-                DayDetailsForForecast(dayForecasts: forecasts, date: date)));
+      context,
+      MaterialPageRoute(
+        builder: (_) =>
+            DayDetailsForForecast(dayForecasts: forecasts, date: date),
+      ),
+    );
   });
 }
 

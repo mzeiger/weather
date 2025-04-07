@@ -46,6 +46,8 @@ dependencies:
   font_awesome_flutter: ^10.8.0
   shared_preferences: ^2.5.2
   logger: ^2.5.0
+  custom_info_window: ^1.0.1
+  flutter_map_location_marker: ^10.0.0
   
 dev_dependencies:
   flutter_test:

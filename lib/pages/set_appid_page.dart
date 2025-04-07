@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weather/helpers/appid_singleton.dart';
 import 'package:weather/pages/help_pages/main_help_page.dart';
-
 import 'package:weather/pages/home_page.dart';
 
 class SetAppIdPage extends StatefulWidget {
@@ -126,14 +125,4 @@ class _SetAppIdPageState extends State<SetAppIdPage> {
   TextStyle textStyle() {
     return const TextStyle(fontSize: 14);
   }
-
-  // Future<bool> getAppId() async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   String? appId = prefs.getString('appId');
-  //   if (appId == null) {
-  //     return false;
-  //   } else {
-  //     return true;
-  //   }
-  // }
 }

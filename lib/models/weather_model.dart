@@ -3,8 +3,6 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:weather/api/api.dart';
 
-//import 'package:logger/logger.dart';
-
 class WeatherModel {
   double? coordLongitude, coordLatitude;
   String? weatherMain, weatherDescription, weatherIcon;
@@ -52,50 +50,8 @@ class WeatherModel {
       hasDayLightSavingTime,
       isDayLightSavingTimeActive});
 
-  // Future<Map<String, dynamic>> getWeatherByZip(String zipCode) async {
-  //   Map<String, dynamic> queryParams = {
-  //     "zip": zipCode,
-  //     "appid": AppIdSingleton.instance.getAppId(), //appId,
-  //     "units": "imperial"
-  //   };
-
-  //   try {
-  //     String url = urlPrefix2;
-  //     final response =
-  //         await http.get(Uri.parse(url).replace(queryParameters: queryParams));
-  //     Map<String, dynamic> dataMap = jsonDecode(response.body);
-  //     return dataMap;
-  //   } catch (e) {
-  //     if (kDebugMode) {
-  //       print('Exception: $e');
-  //     }
-  //     return {'x', e} as Map<String, dynamic>;
-  //   }
-  // }
-
-  // Future<Map<String, dynamic>> getWeatherByCity(String cityCode) async {
-  //   try {
-  //     Map<String, dynamic> queryParams = {
-  //       "q": cityCode,
-  //       "appid": AppIdSingleton.instance.getAppId(), // appId,
-  //       "units": "imperial"
-  //     };
-  //     String url = urlPrefix2;
-  //     final response =
-  //         await http.get(Uri.parse(url).replace(queryParameters: queryParams));
-  //     Map<String, dynamic> dataMap = jsonDecode(response.body);
-  //     return dataMap;
-  //   } catch (e) {
-  //     if (kDebugMode) {
-  //       print('Exception: $e');
-  //     }
-  //     return {'x', e} as Map<String, dynamic>;
-  //   }
-  // }
-
   Future<Map<String, dynamic>> getVisualCrossingWeather(String cityCode) async {
     try {
-      //final logger = Logger();
       Map<String, dynamic> queryParams = {
         "unitGroup": "us",
         "include": "current,days",
@@ -107,7 +63,6 @@ class WeatherModel {
           await http.get(Uri.parse(url).replace(queryParameters: queryParams));
       String decodedBody = utf8.decode(response.bodyBytes);
       Map<String, dynamic> dataMap = jsonDecode(decodedBody);
-      //logger.d(dataMap);
       return dataMap;
     } catch (e) {
       if (kDebugMode) {

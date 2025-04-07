@@ -13,6 +13,7 @@ import 'package:weather/models/weather_model.dart';
 import 'package:weather/pages/gps_page.dart';
 import 'package:weather/pages/help_pages/main_help_page.dart';
 import 'package:weather/pages/set_appid_page.dart';
+import 'package:weather/pages/weather_from_map_page.dart';
 import 'package:weather/pages/weather_lon_lat_page.dart';
 import 'package:weather/pages/weather_page.dart';
 
@@ -61,10 +62,12 @@ class _HomePageState extends State<HomePage> {
   @override
   void dispose() {
     _cityZipController.dispose();
+    zipController.dispose();
     super.dispose();
   }
 
   final TextEditingController _cityZipController = TextEditingController();
+  final TextEditingController zipController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -156,6 +159,7 @@ class _HomePageState extends State<HomePage> {
                     padding: EdgeInsets.symmetric(horizontal: 10),
                     child: Divider(thickness: 5),
                   ),
+                  clickOnMapToGetWeather(),
                   gpsButton(),
                 ],
               ),
@@ -167,7 +171,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget cityInput() {
-    // TextEditingController cityController = TextEditingController();
     return Form(
       key: _cityFormKey,
       child: Column(
@@ -254,7 +257,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget zipcodeInput() {
-    TextEditingController zipController = TextEditingController();
+    // TextEditingController zipController = TextEditingController();
     return Form(
       key: _zipFormKey,
       child: Column(
@@ -299,68 +302,6 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-
-  //         const SizedBox(height: 5),
-  //         TextButton(
-  //           onPressed: () {
-  //             if (_zipFormKey.currentState!.validate()) {
-  //               FocusScope.of(context).unfocus();
-  //               EasyLoading.show(status: 'Loading...');
-  //               weatherModel.getWeatherByZip(zipController.text).then(
-  //                 (weatherResponse) {
-  //                   if (weatherResponse['cod'] != 200) {
-  //                     if (mounted) {
-  //                       EasyLoading.dismiss();
-  //                       showErrorDialog(context,
-  //                           "${weatherResponse['cod']}: ${weatherResponse['message']}");
-  //                     }
-  //                   } else {
-  //                     geoModel
-  //                         .getSunriseSunset(weatherResponse['coord']['lat'],
-  //                             weatherResponse['coord']['lon'])
-  //                         .then(
-  //                       (geo) {
-  //                         timeZoneModel
-  //                             .getTimeZoneDateTime(
-  //                                 weatherResponse['coord']['lat'],
-  //                                 weatherResponse['coord']['lon'])
-  //                             .then(
-  //                           (tz) {
-  //                             WeatherModel weather = populateWeatherModel(
-  //                                 weatherModel, weatherResponse, geo, tz);
-  //                             if (mounted) {
-  //                               EasyLoading.dismiss();
-  //                               Navigator.push(
-  //                                 context,
-  //                                 MaterialPageRoute(
-  //                                   builder: (_) =>
-  //                                       WeatherPage(weather: weather),
-  //                                 ),
-  //                               ).whenComplete(() => FocusManager
-  //                                   .instance.primaryFocus!
-  //                                   .unfocus());
-  //                             }
-  //                           },
-  //                         );
-  //                       },
-  //                     );
-  //                   }
-  //                 },
-  //               );
-  //             }
-  //           },
-  //           style: const ButtonStyle(
-  //               backgroundColor: WidgetStatePropertyAll(Colors.blue)),
-  //           child: const Text(
-  //             'Get Current Weather by Zipcode',
-  //             style: TextStyle(color: Colors.white),
-  //           ),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
-  // }
 
   void performZipPressed(String zipCode) {
     {
@@ -495,21 +436,23 @@ class _HomePageState extends State<HomePage> {
                   );
                 },
               );
-              // );
-              //   },
-
-              //   style: const ButtonStyle(
-              //       backgroundColor: WidgetStatePropertyAll(Colors.blue)),
-              //   child: Text(
-              //     _canGetWeatherByCurrentLocation
-              //         ? 'Get Current Weather at this Location'
-              //         : 'Location services are disabled',
-              //     style: const TextStyle(color: Colors.white),
-              //   ),
-              // ),
             },
           )
         ],
+      ),
+    );
+  }
+
+  Widget clickOnMapToGetWeather() {
+    return TextButton(
+      onPressed: () => Navigator.push(context,
+          MaterialPageRoute(builder: (_) => const WeatherFromMapPage())),
+      style: const ButtonStyle(
+        backgroundColor: WidgetStatePropertyAll(Colors.blue),
+      ),
+      child: const Text(
+        'Get Weather From Map',
+        style: TextStyle(color: Colors.white),
       ),
     );
   }
@@ -521,7 +464,8 @@ class _HomePageState extends State<HomePage> {
             context, MaterialPageRoute(builder: (_) => const GpsPage()));
       },
       style: const ButtonStyle(
-          backgroundColor: WidgetStatePropertyAll(Colors.blue)),
+        backgroundColor: WidgetStatePropertyAll(Colors.blue),
+      ),
       child: const Text(
         'GPS Page',
         style: TextStyle(color: Colors.white),

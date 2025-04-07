@@ -29,11 +29,6 @@ class HelpScreen1 extends StatelessWidget {
             softWrap: true,
             textAlign: TextAlign.left,
           ),
-          // Text(
-          //   txt2,
-          //   softWrap: true,
-          //   textAlign: TextAlign.left,
-          // ),
           const Text(
               'Now click on the "NEXT" button below for instructions on how to get a key.')
         ],

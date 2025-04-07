@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:weather/api/api.dart';
 
@@ -15,13 +14,15 @@ class TimeZoneModel {
     try {
       String url = '${timeZoneUrl}latitude=${lat}&longitude=${lon}';
       final response = await http.get(Uri.parse(url));
+
       Map<String, dynamic> dataMap = jsonDecode(response.body);
       return dataMap;
     } catch (e) {
-      if (kDebugMode) {
-        print('Exception: $e');
-      }
-      return {'x', e} as Map<String, dynamic>;
+      return populateUnknownTimeZoneModel();
     }
   }
+}
+
+populateUnknownTimeZoneModel() {
+  return {"timeZone": "", "currentLocalTime": ""};
 }

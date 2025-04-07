@@ -22,13 +22,11 @@ class _MapPageState extends State<MapPage> {
     _initialPosition = LatLng(widget.latitude, widget.longitude);
   }
 
-  // void _zoom(int direction) {
-  //   // if 0 zoom in - if 1 zoom out
-  //   setState(() {
-  //     direction == 0 ? _zoomLevel += 1 : _zoomLevel -= 1;
-  //     _mapController.move(_initialPosition!, _zoomLevel);
-  //   });
-  // }
+  @override
+  void dispose() {
+    _mapController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,29 +65,6 @@ class _MapPageState extends State<MapPage> {
                       ])
                     ]),
               ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //   children: [
-              //     TextButton(
-              //       onPressed: () => _zoom(0),
-              //       style:
-              //           TextButton.styleFrom(backgroundColor: Colors.blueGrey),
-              //       child: const Text(
-              //         'Zoom In',
-              //         style: TextStyle(fontSize: 20, color: Colors.white),
-              //       ),
-              //     ),
-              //     TextButton(
-              //       onPressed: () => _zoom(1),
-              //       style:
-              //           TextButton.styleFrom(backgroundColor: Colors.blueGrey),
-              //       child: const Text(
-              //         'Zoom Out',
-              //         style: TextStyle(fontSize: 20, color: Colors.white),
-              //       ),
-              //     ),
-              //   ],
-              // )
             ],
           ),
         ),

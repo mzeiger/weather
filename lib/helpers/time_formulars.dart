@@ -11,13 +11,21 @@ import 'package:weather/models/weather_model.dart';
 
 class Formulas {
   static String getTime(WeatherModel weather) {
-    DateTime dt = DateTime.parse(weather.currentLocalTime!);
-    return DateFormat('h:mm a').format(dt);
+    if (weather.currentLocalTime == "") {
+      return "";
+    } else {
+      DateTime dt = DateTime.parse(weather.currentLocalTime!);
+      return DateFormat('h:mm a').format(dt);
+    }
   }
 
   static String getDate(WeatherModel weather) {
-    DateTime dt = DateTime.parse(weather.currentLocalTime!);
-    return DateFormat('EEEE, MMM dd, yyyy').format(dt);
+    if (weather.currentLocalTime == "") {
+      return "";
+    } else {
+      DateTime dt = DateTime.parse(weather.currentLocalTime!);
+      return DateFormat('EEEE, MMM dd, yyyy').format(dt);
+    }
   }
 
   static Color temperatureColor(double? temp) {

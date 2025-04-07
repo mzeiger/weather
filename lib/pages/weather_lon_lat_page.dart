@@ -37,9 +37,9 @@ class WeatherLLPage extends StatelessWidget {
                   const SizedBox(height: 10),
                   _location(),
                   imageFromOpenWeather(weather),
-                  Text(
+                  _textOrNothing(
                     '${Formulas.getDate(weather)}  ${Formulas.getTime(weather)}',
-                    style: const TextStyle(fontSize: 18),
+                    18,
                   ),
                   keyInfo(context, weather),
                   Row(
@@ -62,18 +62,45 @@ class WeatherLLPage extends StatelessWidget {
   }
 
   Widget _location() {
-    return Column(
-      children: [
-        Text('${geoModel.street}', style: textStyle(20)),
-        Text(
-          '${geoModel.locality}, ${StateAbreviations.getStateAbrevaition(geoModel.administrativeArea!)} ${geoModel.postalCode}',
-          style: textStyle(20),
-        ),
-        Text(
-          '${geoModel.country}',
-          style: textStyle(20),
-        )
-      ],
-    );
+    if (geoModel.country! == "") {
+      return const Text(
+        'No Address indicated',
+        style: TextStyle(
+            color: Color.fromARGB(255, 211, 208, 15),
+            fontStyle: FontStyle.italic,
+            fontSize: 25,
+            fontWeight: FontWeight.bold),
+      );
+    } else {
+      return Column(
+        children: [
+          Text(
+            '${geoModel.street}',
+            style: textStyle(20),
+            textAlign: TextAlign.center,
+          ),
+          _textOrNothing(
+            '${geoModel.locality} ${StateAbreviations.getStateAbrevaition(geoModel.administrativeArea!)} ${geoModel.postalCode}',
+            20,
+          ),
+          Text(
+            '${geoModel.country}',
+            style: textStyle(20),
+          )
+        ],
+      );
+    }
+  }
+
+  Widget _textOrNothing(String text, double sty) {
+    if (text.replaceAll(" ", "") == "") {
+      return const SizedBox(height: 0, width: 0);
+    } else {
+      return Text(
+        text,
+        textAlign: TextAlign.center,
+        style: textStyle(sty),
+      );
+    }
   }
 }

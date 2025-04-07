@@ -30,8 +30,24 @@ class GeoModel {
       List<Placemark> placemarks = await placemarkFromCoordinates(lat, lon);
       return placemarks[0];
     } catch (e) {
-      throw (Exception(e.toString()));
+      //throw (Exception(e.toString()));
+      return populateUnknownPlacemark();
     }
+  }
+
+  Placemark populateUnknownPlacemark() {
+    return const Placemark(
+        administrativeArea: "",
+        country: "",
+        isoCountryCode: "",
+        locality: "",
+        name: "",
+        postalCode: "",
+        street: "",
+        subAdministrativeArea: "",
+        subLocality: "",
+        subThoroughfare: "",
+        thoroughfare: "");
   }
 
   Future<Map<String, dynamic>> getSunriseSunset(double lat, double lon) async {

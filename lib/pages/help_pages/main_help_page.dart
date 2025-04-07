@@ -98,25 +98,6 @@ class _HelpSessionState extends State<HelpSession> {
             )
           ],
         ),
-        // floatingActionButton: Row(
-        //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-        //   children: [
-        //     FloatingActionButton(
-        //       onPressed: () => _pageController.previousPage(
-        //         duration: const Duration(milliseconds: 300),
-        //         curve: Curves.easeInOut,
-        //       ),
-        //       child: const Icon(Icons.arrow_back),
-        //     ),
-        //     FloatingActionButton(
-        //       onPressed: () => _pageController.nextPage(
-        //         duration: const Duration(milliseconds: 300),
-        //         curve: Curves.easeInOut,
-        //       ),
-        //       child: const Icon(Icons.arrow_forward),
-        //     ),
-        //   ],
-        // ),
       ),
     );
   }
