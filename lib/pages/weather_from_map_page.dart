@@ -33,38 +33,46 @@ class _WeatherFromMapPageState extends State<WeatherFromMapPage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Get Weather'),
+          title: const Text('Map Search'),
           backgroundColor: Colors.lightBlue,
         ),
-        body: FlutterMap(
-          mapController: _mapController,
-          options: MapOptions(
-            initialCenter: const LatLng(0, 0),
-            initialZoom: 2,
-            maxZoom: 100,
-            minZoom: 0,
-            onTap: (pos, point) {
-              // String pointText =
-              //     "Longitude: ${point.longitude} Latitude: ${point.latitude}";
-              // print(pointText);
-              showWeather(point);
-            },
-          ),
+        body: Column(
           children: [
-            TileLayer(
-              urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-            ),
-            const CurrentLocationLayer(
-              style: LocationMarkerStyle(
-                  marker: DefaultLocationMarker(
-                    child: Icon(
-                      Icons.location_pin,
-                      color: Colors.white,
-                    ),
+            Expanded(
+              child: FlutterMap(
+                mapController: _mapController,
+                options: MapOptions(
+                  initialCenter: const LatLng(0, 0),
+                  initialZoom: 2,
+                  maxZoom: 100,
+                  minZoom: 0,
+                  onTap: (pos, point) {
+                    // String pointText =
+                    //     "Longitude: ${point.longitude} Latitude: ${point.latitude}";
+                    // print(pointText);
+                    showWeather(point);
+                  },
+                ),
+                children: [
+                  TileLayer(
+                    urlTemplate:
+                        'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
                   ),
-                  markerSize: Size(35, 35),
-                  markerDirection: MarkerDirection.heading),
-            )
+                  const CurrentLocationLayer(
+                    style: LocationMarkerStyle(
+                        marker: DefaultLocationMarker(
+                          child: Icon(
+                            Icons.location_pin,
+                            color: Colors.white,
+                          ),
+                        ),
+                        markerSize: Size(35, 35),
+                        markerDirection: MarkerDirection.heading),
+                  ),
+                ],
+              ),
+            ),
+            const Text('Tap on map to get weather at that location')
           ],
         ),
       ),

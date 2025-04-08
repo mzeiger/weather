@@ -22,37 +22,40 @@ class WeatherLLPage extends StatelessWidget {
           centerTitle: true,
           backgroundColor: Colors.lightBlue,
         ),
-        body: DecoratedBox(
-          decoration: const BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage('assets/images/pexels-pixabay-314726.jpg'),
-                  fit: BoxFit.cover)),
-          child: SizedBox(
-            height: MediaQuery.sizeOf(context).height,
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                spacing: 5,
-                children: [
-                  const SizedBox(height: 10),
-                  _location(),
-                  imageFromOpenWeather(weather),
-                  _textOrNothing(
-                    '${Formulas.getDate(weather)}  ${Formulas.getTime(weather)}',
-                    18,
-                  ),
-                  keyInfo(context, weather),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    spacing: 8,
-                    children: [
-                      forecastButton(context, weather.coordLatitude!,
-                          weather.coordLongitude!),
-                      mapboxButton(context, weather.coordLatitude!,
-                          weather.coordLongitude!),
-                    ],
-                  ),
-                ],
+        body: SingleChildScrollView(
+          child: DecoratedBox(
+            decoration: const BoxDecoration(
+                image: DecorationImage(
+                    image:
+                        AssetImage('assets/images/pexels-pixabay-314726.jpg'),
+                    fit: BoxFit.cover)),
+            child: SizedBox(
+              height: MediaQuery.sizeOf(context).height,
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  spacing: 5,
+                  children: [
+                    const SizedBox(height: 10),
+                    _location(),
+                    imageFromOpenWeather(weather),
+                    _textOrNothing(
+                      '${Formulas.getDate(weather)}  ${Formulas.getTime(weather)}',
+                      18,
+                    ),
+                    keyInfo(context, weather),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      spacing: 8,
+                      children: [
+                        forecastButton(context, weather.coordLatitude!,
+                            weather.coordLongitude!),
+                        mapboxButton(context, weather.coordLatitude!,
+                            weather.coordLongitude!),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

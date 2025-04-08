@@ -24,7 +24,7 @@ class Formulas {
       return "";
     } else {
       DateTime dt = DateTime.parse(weather.currentLocalTime!);
-      return DateFormat('EEEE, MMM dd, yyyy').format(dt);
+      return DateFormat('EEE, MMM dd, yyyy').format(dt);
     }
   }
 
