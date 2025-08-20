@@ -43,9 +43,9 @@ class _WeatherFromMapPageState extends State<WeatherFromMapPage> {
                 mapController: _mapController,
                 options: MapOptions(
                   initialCenter: const LatLng(0, 0),
-                  initialZoom: 2,
-                  maxZoom: 100,
-                  minZoom: 0,
+                  initialZoom: 400,
+                  maxZoom: 500,
+                  minZoom: 10,
                   onTap: (pos, point) {
                     // String pointText =
                     //     "Longitude: ${point.longitude} Latitude: ${point.latitude}";
